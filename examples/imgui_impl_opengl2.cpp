@@ -18,6 +18,7 @@
 
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
+//  2019-06-05: Misc: Added extra NULL parameter to the pcmd->UserCallback() call to fix compilation with the new ImDrawCallback api.
 //  2019-04-30: OpenGL: Added support for special ImDrawCallback_ResetRenderState callback to reset render state.
 //  2019-02-11: OpenGL: Projecting clipping rectangles correctly using draw_data->FramebufferScale to allow multi-viewports for retina display.
 //  2018-11-30: Misc: Setting up io.BackendRendererName so it can be displayed in the About Window.
@@ -155,7 +156,7 @@ void ImGui_ImplOpenGL2_RenderDrawData(ImDrawData* draw_data)
                 if (pcmd->UserCallback == ImDrawCallback_ResetRenderState)
                     ImGui_ImplOpenGL2_SetupRenderState(draw_data, fb_width, fb_height);
                 else
-                    pcmd->UserCallback(cmd_list, pcmd);
+                    pcmd->UserCallback(cmd_list, pcmd, NULL);
             }
             else
             {

@@ -12,6 +12,7 @@
 
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
+//  2019-XX-XX: Misc: Added extra NULL parameter to the pcmd->UserCallback() call to fix compilation with the new ImDrawCallback api.
 //  2019-07-21: Inputs: Added mapping for ImGuiKey_KeyPadEnter.
 //  2019-05-11: Inputs: Don't filter value from character callback before calling AddInputCharacter().
 //  2018-11-30: Misc: Setting up io.BackendPlatformName/io.BackendRendererName so they can be displayed in the About Window.
@@ -76,7 +77,7 @@ void ImGui_Marmalade_RenderDrawData(ImDrawData* draw_data)
             const ImDrawCmd* pcmd = &cmd_list->CmdBuffer[cmd_i];
             if (pcmd->UserCallback)
             {
-                pcmd->UserCallback(cmd_list, pcmd);
+                pcmd->UserCallback(cmd_list, pcmd, NULL);
             }
             else
             {

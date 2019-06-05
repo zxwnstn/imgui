@@ -11,6 +11,7 @@
 
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
+//  2019-XX-XX: Misc: Added extra NULL parameter to the pcmd->UserCallback() call to fix compilation with the new ImDrawCallback api.
 //  2019-07-21: DirectX10: Backup, clear and restore Geometry Shader is any is bound when calling ImGui_ImplDX10_RenderDrawData().
 //  2019-05-29: DirectX10: Added support for large mesh (64K+ vertices), enable ImGuiBackendFlags_RendererHasVtxOffset flag.
 //  2019-04-30: DirectX10: Added support for special ImDrawCallback_ResetRenderState callback to reset render state.
@@ -231,7 +232,7 @@ void ImGui_ImplDX10_RenderDrawData(ImDrawData* draw_data)
                 if (pcmd->UserCallback == ImDrawCallback_ResetRenderState)
                     ImGui_ImplDX10_SetupRenderState(draw_data, ctx);
                 else
-                    pcmd->UserCallback(cmd_list, pcmd);
+                    pcmd->UserCallback(cmd_list, pcmd, NULL);
             }
             else
             {

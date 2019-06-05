@@ -11,6 +11,7 @@
 
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
+//  2019-06-05: Misc: Added extra NULL parameter to the pcmd->UserCallback() call to fix compilation with the new ImDrawCallback api.
 //  2019-05-29: Metal: Added support for large mesh (64K+ vertices), enable ImGuiBackendFlags_RendererHasVtxOffset flag.
 //  2019-04-30: Metal: Added support for special ImDrawCallback_ResetRenderState callback to reset render state.
 //  2019-02-11: Metal: Projecting clipping rectangles correctly using draw_data->FramebufferScale to allow multi-viewports for retina display.
@@ -495,7 +496,7 @@ void ImGui_ImplMetal_DestroyDeviceObjects()
                 if (pcmd->UserCallback == ImDrawCallback_ResetRenderState)
                     [self setupRenderState:drawData commandBuffer:commandBuffer commandEncoder:commandEncoder renderPipelineState:renderPipelineState vertexBuffer:vertexBuffer vertexBufferOffset:vertexBufferOffset];
                 else
-                    pcmd->UserCallback(cmd_list, pcmd);
+                    pcmd->UserCallback(cmd_list, pcmd, NULL);
             }
             else
             {

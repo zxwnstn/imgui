@@ -288,7 +288,7 @@ CODE
              const ImDrawCmd* pcmd = &cmd_list->CmdBuffer[cmd_i];
              if (pcmd->UserCallback)
              {
-                 pcmd->UserCallback(cmd_list, pcmd);
+                 pcmd->UserCallback(cmd_list, pcmd, NULL);
              }
              else
              {
@@ -367,6 +367,15 @@ CODE
  Below is a change-log of API breaking changes only. If you are using one of the functions listed, expect to have to fix some code.
  When you are not sure about a old symbol or function name, try using the Search/Find function of your IDE to look for comments or references in all imgui files.
  You can read releases logs https://github.com/ocornut/imgui/releases for more details.
+
+ - 2019/XX/XX (1.XX) - added an extra 'void* renderer_user_data' parameter to ImDrawCallback (stored in ImDrawCmd::UserCallback).
+                       this allows custom rendering back-ends to pass custom local rendering information to the callback.
+                       if you use an renderer back-end based on or copied from one before version 1.71, compilation will fail on this line:
+                           pcmd->UserCallback(cmd_list, pcmd);
+                       you can fix it by adding a trailing NULL parameter:
+                           pcmd->UserCallback(cmd_list, pcmd, NULL);
+                       if your back-end needs to support multiple versions, you can use a '#if (IMGUI_VERSION_NUM >= 17004)' test.
+                       if you are using an old copied back-end, consider building the one directly in the imgui repository.
 
  - 2019/07/15 (1.72) - removed TreeAdvanceToLabelPos() which is rarely used and only does SetCursorPosX(GetCursorPosX() + GetTreeNodeToLabelSpacing()). Kept redirection function (will obsolete).
  - 2019/07/12 (1.72) - renamed ImFontAtlas::CustomRect to ImFontAtlasCustomRect. Kept redirection typedef (will obsolete).
