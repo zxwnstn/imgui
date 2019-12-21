@@ -945,11 +945,11 @@ enum ImGuiNextItemDataFlags_
 struct ImGuiNextItemData
 {
     ImGuiNextItemDataFlags      Flags;
-    float                       Width;          // Set by SetNextItemWidth().
-    bool                        OpenVal;        // Set by SetNextItemOpen() function.
+    float                       Width;                  // Set by SetNextItemWidth()
+    bool                        OpenVal;                // Set by SetNextItemOpen()
     ImGuiCond                   OpenCond;
-    void*                       MultiSelectData;
-    ImGuiID                     MultiSelectScopeId;
+    void*                       MultiSelectData;        // Set by SetNextItemMultiSelectData()
+    ImGuiID                     MultiSelectScopeId;     // "
 
     ImGuiNextItemData()         { memset(this, 0, sizeof(*this)); }
     inline void ClearFlags()    { Flags = ImGuiNextItemDataFlags_None; }
